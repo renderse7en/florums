@@ -1,8 +1,9 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
 use App\Models\Forum;
+use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreForumRequest;
 use App\Http\Requests\UpdateForumRequest;
 

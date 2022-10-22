@@ -23,15 +23,18 @@ return new class extends Migration
             $table->unsignedBigInteger('count_posts')->nullable();
             $table->unsignedBigInteger('count_views')->nullable();
             $table->dateTime('locked')->nullable();
-            $table->foreignIdFor(User::class, 'locked_by_id')->nullable();
-            $table->foreignIdFor(User::class, 'hidden_by_id')->nullable();
-            $table->foreignIdFor(User::class, 'created_by_id')->nullable();
-            $table->foreignIdFor(User::class, 'updated_by_id')->nullable();
-            $table->foreignIdFor(User::class, 'deleted_by_id')->nullable();
+            $table->text('locked_message')->nullable();
+            $table->dateTime('hidden')->nullable();
+            $table->foreignId('locked_by_id')->nullable();
+            $table->foreignId('hidden_by_id')->nullable();
+            $table->foreignId('created_by_id')->nullable();
+            $table->foreignId('updated_by_id')->nullable();
+            $table->foreignId('deleted_by_id')->nullable();
             $table->timestamps();
             $table->softDeletes();
 
             // Indexes
+            $table->index('forum_id', 'IX_threads_forum_id');
             $table->index('locked_by_id', 'IX_threads_locked_by_id');
             $table->index('hidden_by_id', 'IX_threads_hidden_by_id');
             $table->index('created_by_id', 'IX_threads_created_by_id');
@@ -39,6 +42,7 @@ return new class extends Migration
             $table->index('deleted_by_id', 'IX_threads_deleted_by_id');
 
             // Foreign Keys
+            $table->foreign('forum_id', 'FK_threads_forums_forum_id')->cascadeOnDelete();
             $table->foreign('locked_by_id', 'FK_threads_users_locked_by_id')->nullOnDelete();
             $table->foreign('hidden_by_id', 'FK_threads_users_hidden_by_id')->nullOnDelete();
             $table->foreign('created_by_id', 'FK_threads_users_created_by_id')->nullOnDelete();

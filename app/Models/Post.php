@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use App\Traits\TimestampsBy;
+use App\Traits\SoftDeletesBy;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -15,6 +17,9 @@ class Post extends Model
 
     // Laravel traits
     use HasFactory, SoftDeletes;
+
+    // First Party traits
+    use TimestampsBy, SoftDeletesBy;
 
     ////////////////
     // Properties //

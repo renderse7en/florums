@@ -40,10 +40,10 @@ return new class extends Migration
             $table->index('deleted_by_id', 'IX_forums_deleted_by_id');
 
             // Foreign Keys
-            $table->foreign('locked_by_id', 'FK_forums_users_locked_by_id')->nullOnDelete();
-            $table->foreign('created_by_id', 'FK_forums_users_created_by_id')->nullOnDelete();
-            $table->foreign('updated_by_id', 'FK_forums_users_updated_by_id')->nullOnDelete();
-            $table->foreign('deleted_by_id', 'FK_forums_users_deleted_by_id')->nullOnDelete();
+            $table->foreign('locked_by_id', 'FK_forums_users_locked_by_id')->references('id')->on('users')->nullOnDelete();
+            $table->foreign('created_by_id', 'FK_forums_users_created_by_id')->references('id')->on('users')->nullOnDelete();
+            $table->foreign('updated_by_id', 'FK_forums_users_updated_by_id')->references('id')->on('users')->nullOnDelete();
+            $table->foreign('deleted_by_id', 'FK_forums_users_deleted_by_id')->references('id')->on('users')->nullOnDelete();
         });
     }
 

@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Forum;
 use App\Models\Thread;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
@@ -18,6 +19,7 @@ return new class extends Migration
 
             // Columns
             $table->id();
+            $table->foreignIdFor(Forum::class);
             $table->foreignIdFor(Thread::class);
             $table->text('content')->nullable();
             $table->unsignedBigInteger('count_views')->nullable();
@@ -31,6 +33,7 @@ return new class extends Migration
             $table->softDeletes();
 
             // Indexes
+            $table->index('forum_id', 'IX_posts_forum_id');
             $table->index('thread_id', 'IX_posts_thread_id');
             $table->index('hidden_by_id', 'IX_posts_hidden_by_id');
             $table->index('created_by_id', 'IX_posts_created_by_id');
@@ -38,11 +41,12 @@ return new class extends Migration
             $table->index('deleted_by_id', 'IX_posts_deleted_by_id');
 
             // Foreign Keys
-            $table->foreign('thread_id', 'FK_posts_threads_thread_id')->cascadeOnDelete();
-            $table->foreign('hidden_by_id', 'FK_posts_users_hidden_by_id')->nullOnDelete();
-            $table->foreign('created_by_id', 'FK_posts_users_created_by_id')->nullOnDelete();
-            $table->foreign('updated_by_id', 'FK_posts_users_updated_by_id')->nullOnDelete();
-            $table->foreign('deleted_by_id', 'FK_posts_users_deleted_by_id')->nullOnDelete();
+            $table->foreign('forum_id', 'FK_posts_forums_forum_id')->references('id')->on('forums')->cascadeOnDelete();
+            $table->foreign('thread_id', 'FK_posts_threads_thread_id')->references('id')->on('threads')->cascadeOnDelete();
+            $table->foreign('hidden_by_id', 'FK_posts_users_hidden_by_id')->references('id')->on('users')->nullOnDelete();
+            $table->foreign('created_by_id', 'FK_posts_users_created_by_id')->references('id')->on('users')->nullOnDelete();
+            $table->foreign('updated_by_id', 'FK_posts_users_updated_by_id')->references('id')->on('users')->nullOnDelete();
+            $table->foreign('deleted_by_id', 'FK_posts_users_deleted_by_id')->references('id')->on('users')->nullOnDelete();
         });
     }
 

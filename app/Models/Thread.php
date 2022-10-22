@@ -4,6 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Thread extends Model
@@ -31,4 +33,28 @@ class Thread extends Model
         'updated_by_id',
         'deleted_by_id',
     ];
+
+    ///////////////////
+    // Relationships //
+    ///////////////////
+
+    /**
+     * A Thread belongs to one Forum.
+     *
+     * @return BelongsTo
+     */
+    public function forum()
+    {
+        return $this->belongsTo(Forum::class);
+    }
+
+    /**
+     * A Thread has many Posts.
+     *
+     * @return HasMany
+     */
+    public function posts()
+    {
+        return $this->hasMany(Post::class);
+    }
 }

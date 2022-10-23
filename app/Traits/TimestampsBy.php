@@ -23,7 +23,7 @@ trait TimestampsBy
         });
 
         // Set [model].updated_by_id when updating the model.
-        static::updateing(function ($model) {
+        static::updating(function ($model) {
             if (empty($model->updated_by_id) && ($user = Auth::user())) {
                 $model->updatedBy()->associate($user);
             }

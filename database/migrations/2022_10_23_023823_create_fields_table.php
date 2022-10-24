@@ -21,8 +21,8 @@ return new class extends Migration
             $table->text('description')->nullable();
             $table->string('type', 20)->nullable();
             $table->string('applies_to', 255)->nullable();
-            $table->unsignedSmallInteger('order')->nullable();
             $table->boolean('required');
+            $table->unsignedSmallInteger('order')->nullable();
             $table->foreignId('created_by_id')->nullable();
             $table->foreignId('updated_by_id')->nullable();
             $table->foreignId('deleted_by_id')->nullable();
